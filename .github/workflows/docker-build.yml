@@ -47,12 +47,6 @@ jobs:
             uses: docker/metadata-action@v5
             with:
                 images: ${{ env.DOCKER_IMAGE_NAME }}
-                tags: |
-                    type=match,pattern=\d+
-                    type=match,pattern=\d+.\d+
-                    type=match,pattern=\d+.\d+.\d+
-                    type=match,pattern=\d+.\d+.\d+-.+
-                    type=raw,value=latest,enable={{is_default_branch}}
                 labels: |
                     org.opencontainers.image.title=${{ github.repository }}
                     org.opencontainers.image.description=https://github.com/${{ github.repository }}
@@ -66,7 +60,7 @@ jobs:
             shell: bash
             run: |
                 if [ "${{ secrets.DOCKERHUB_TOKEN }}" != '' ]; then
-                    echo "::set-output name=exist::true"
+                    echo "exist=true" >> $GITHUB_OUTPUT
                 fi
 
         -   name: Login to DockerHub
