@@ -1,2 +1,2 @@
-FROM ubuntu
-RUN apt-get update
+FROM scratch
+COPY README.md /README.md
